@@ -44,17 +44,27 @@ public class Empleado{
         this.regristoCerrado = regristoCerrado;
     }
 
+    public void cerrarRegistro() {
+        this.regristoCerrado = true;
+    }
+
+    public boolean estaRegistroCerrado() {
+        return regristoCerrado;
+    }
+
     public String mostrarDatos(){
-        return "Empleado [nombre=" + nombre + ", id=" + id + ", salarioBase=" + salarioBase + ",";
+        return "Empleado{nombre=" + nombre + ", id=" + id + ", salarioBase=" + salarioBase + "}";
     }
 
     public double calcularPago(){
         return salarioBase;
     }
-    public boolean cerrarRegristo(boolean regristoCerrado){
-        return regristoCerrado=true;
-    }
+    
     public void aumentarSalario(double monto){
-        return;
+        this.salarioBase += monto;
+    }
+
+    public boolean assertFalse(){
+        return regristoCerrado;
     }
 }

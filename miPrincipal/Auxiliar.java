@@ -14,13 +14,11 @@ public class Auxiliar extends Empleado{
     }
     @Override
     public double calcularPago() {
-        
-        return super.calcularPago();
+        return getSalarioBase() + horasExtra * 40.0;
     }
     @Override
     public String mostrarDatos() {
-        
-        return super.mostrarDatos();
+        return "Auxiliar{nombre=" + getNombre() + ", id=" + getId() + ", salarioBase=" + getSalarioBase() + ", horasExtra=" + horasExtra + "}";
     }
     
     

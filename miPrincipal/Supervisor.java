@@ -23,7 +23,7 @@ public class Supervisor extends Empleado{
 
     @Override
     public String mostrarDatos() {
-        return super.mostrarDatos();
+        return "Supervisor{nombre=" + getNombre() + ", id=" + getId() + ", salarioBase=" + getSalarioBase() + ", bonoFijo=" + bonoFijo + "}";
     }
     
 
