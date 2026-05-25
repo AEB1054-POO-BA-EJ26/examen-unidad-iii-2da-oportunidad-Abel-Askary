@@ -1,0 +1,64 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: criterio1HerenciaBaseDerivada_25pts
+      id: criterio1herenciabasederivada_25pts
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: criterio1HerenciaBaseDerivada_25pts
+        setup-command: make compile
+        command: ava -jar lib/junit-platform-console-standalone-1.5.2.jar -class-path
+          build --select-method miTest.AppTest#criterio1HerenciaBaseDerivada_25pts
+        timeout: 10
+        max-score: 25
+    - name: criterio2ReutilizacionMiembrosHeredados_25pts
+      id: criterio2reutilizacionmiembrosheredados_25pts
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: criterio2ReutilizacionMiembrosHeredados_25pts
+        setup-command: ''
+        command: java -jar lib/junit-platform-console-standalone-1.5.2.jar -class-path
+          build --select-method miTest.AppTest#criterio2ReutilizacionMiembrosHeredados_25pts
+        timeout: 10
+        max-score: 25
+    - name: criterio3UsoDeSuperConstructoresYMetodos_25pts
+      id: criterio3usodesuperconstructoresymetodos_25pts
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: criterio3UsoDeSuperConstructoresYMetodos_25pts
+        setup-command: ''
+        command: ava -jar lib/junit-platform-console-standalone-1.5.2.jar -class-path
+          build --select-method miTest.AppTest#criterio3UsoDeSuperConstructoresYMetodos_25pts
+        timeout: 10
+        max-score: 25
+    - name: criterio4RedefinicionDeMetodos_25pts
+      id: criterio4redefiniciondemetodos_25pts
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: criterio4RedefinicionDeMetodos_25pts
+        setup-command: ''
+        command: java -jar lib/junit-platform-console-standalone-1.5.2.jar -class-path
+          build --select-method miTest.AppTest#criterio4RedefinicionDeMetodos_25pts
+        timeout: 10
+        max-score: 25
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CRITERIO1HERENCIABASEDERIVADA_25PTS_RESULTS: "${{steps.criterio1herenciabasederivada_25pts.outputs.result}}"
+        CRITERIO2REUTILIZACIONMIEMBROSHEREDADOS_25PTS_RESULTS: "${{steps.criterio2reutilizacionmiembrosheredados_25pts.outputs.result}}"
+        CRITERIO3USODESUPERCONSTRUCTORESYMETODOS_25PTS_RESULTS: "${{steps.criterio3usodesuperconstructoresymetodos_25pts.outputs.result}}"
+        CRITERIO4REDEFINICIONDEMETODOS_25PTS_RESULTS: "${{steps.criterio4redefiniciondemetodos_25pts.outputs.result}}"
+      with:
+        runners: criterio1herenciabasederivada_25pts,criterio2reutilizacionmiembrosheredados_25pts,criterio3usodesuperconstructoresymetodos_25pts,criterio4redefiniciondemetodos_25pts
